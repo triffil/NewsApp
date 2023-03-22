@@ -1,0 +1,87 @@
+/* Headers - nav */
+
+.wrapper-navbar {
+  margin-left: 40px !important;
+  margin-right: 40px !important;
+}
+
+/* Wrappers */
+
+.fd-column {
+  flex-direction: column;
+}
+
+.wrapper {
+  margin-left: 40px;
+  margin-right: 40px;
+  display: flex;  
+  margin-top: 20px;
+  
+}
+
+/* Search module */
+
+.form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+  padding-bottom: 30px;
+}
+
+.nonvisible {
+  display: none;
+}
+
+.input-form-wrapper {
+  width: 100%;
+  padding: 15px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.input-form {
+  width: 90%;
+}
+
+.form-label {
+  opacity: .4;
+}
+
+.select-country {
+  margin-bottom: 20px;
+}
+
+.btn-wrapper {
+  text-align: center;
+}
+
+.btn-search {
+  width: 49%;
+}
+
+
+
+/* Card load module */
+.content-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-news:nth-child(odd) {
+  margin-right: 20px;
+}
+
+.card-news {
+  margin-bottom: 20px;
+  width: 40%;
+}
+
+.card-img-top {
+  height: 300px;
+}
