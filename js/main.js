@@ -1,5 +1,11 @@
+// Elements
 const btnNavSearch = document.querySelector(".btn-nav-search");
 const mainSearch = document.querySelector(".form-wrapper");
+const form = document.querySelector(".input-form");
+const selectCountry = document.querySelector(".select-country");
+const inputTextarea = document.querySelector(".form-control");
+const content = document.querySelector(".content-wrapper");
+const wrapper = document.querySelector(".wrapper");
 
 btnNavSearch.addEventListener("click", () => {
   if (mainSearch.classList.contains("nonvisible")) {
@@ -9,6 +15,11 @@ btnNavSearch.addEventListener("click", () => {
     btnNavSearch.textContent = "Найти новости";
     mainSearch.classList.toggle("nonvisible");
   }
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  loadNews();
 });
 
 function customHttp() {
@@ -84,7 +95,7 @@ const newsService = (function () {
   const apiUrl = "https://newsapi.org/v2";
 
   return {
-    topHeadlines(country = "us", cb) {
+    topHeadlines(country = "ru", cb) {
       http.get(
         `${apiUrl}/top-headlines?country=${country}&apiKey=${apiKey}`,
         cb
@@ -102,14 +113,25 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Load news function
-
 function loadNews() {
-  newsService.topHeadlines("us", onGetResponse);
+  addSpinner();
+  const chooseCountry = selectCountry.value;
+  const textValue = inputTextarea.value;
+
+  clearContent();
+
+  if (!textValue) {
+    newsService.topHeadlines(chooseCountry, onGetResponse);
+  } else {
+    newsService.everything(textValue, onGetResponse);
+  }
+  // newsService.topHeadlines("ru", onGetResponse);
 }
 
 // Function on get response from server
 
 function onGetResponse(error, response) {
+  removeSpinner();
   renderNews(response.articles);
 }
 
@@ -118,7 +140,7 @@ function renderNews(news) {
   const newsContainer = document.querySelector(".content-wrapper");
   let fragment = "";
   news.forEach((newsItem) => {
-    if (!newsItem.urlToImage) {
+    if (!newsItem.urlToImage && !newsItem.title) {
       return;
     }
     const el = newsItemTemplate(newsItem);
@@ -129,12 +151,10 @@ function renderNews(news) {
 
 // News item template function
 function newsItemTemplate(newsItem) {
-  console.log(newsItem);
-
   return `
     <div class="card card-news">
         <img src="${
-          newsItem.urlToImage
+          newsItem.urlToImage || "img/wait.jpg"
         }" class="card-img-top" alt="Тут должна быть картинка, но она не прогрузилась">
         <div class="card-body">
           <h5 class="card-title">${newsItem.title || ""}</h5>
@@ -143,4 +163,27 @@ function newsItemTemplate(newsItem) {
         </div>
     </div>
   `;
+}
+
+// Clear content
+function clearContent() {
+  content.innerHTML = "";
+}
+
+// Add spinner
+function addSpinner() {
+  wrapper.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <div class="d-flex justify-content-center spinner">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Загрузка...</span>
+      </div>
+    </div>
+    `
+  );
+}
+function removeSpinner() {
+  const spinner = document.querySelector(".spinner");
+  spinner.innerHTML = "";
 }

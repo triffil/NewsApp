@@ -19,6 +19,7 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         </ul>
@@ -34,12 +35,12 @@
       <div class="input-form-wrapper">
         <form class="input-form">
           <label class="form-label">Выберите вашу страну</label>
-          <select class="form-select select-country" aria-label="Пример выбора по умолчанию">
-            <option selected>Откройте это меню выбора</option>
-            <option value="1">Страна 1</option>
-            <option value="2">Страна 2</option>
-            <option value="3">Страна 3</option>
+          <select class="form-select select-country">
+            <option value="us">США</option>
+            <option value="ru">Россия</option>
+            <option value="ua">Украина</option>
           </select>
+          
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Что хотите найти?</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
@@ -49,7 +50,8 @@
             <button type="submit" class="btn btn-primary btn-search">Найти</button>
           </div>
         </form>
-      </div>   
+      </div>  
+      
     </div>
 
     <div class="content-wrapper">
