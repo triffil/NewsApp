@@ -3,6 +3,7 @@ const btnNavSearch = document.querySelector(".btn-nav-search");
 const mainSearch = document.querySelector(".form-wrapper");
 const form = document.querySelector(".input-form");
 const selectCountry = document.querySelector(".select-country");
+const selectCategory = document.querySelector(".select-category");
 const inputTextarea = document.querySelector(".form-control");
 const content = document.querySelector(".content-wrapper");
 const wrapper = document.querySelector(".wrapper");
@@ -95,12 +96,13 @@ const newsService = (function () {
   const apiUrl = "https://newsapi.org/v2";
 
   return {
-    topHeadlines(country = "ru", cb) {
+    topHeadlines(country = "ru", category = "sport", cb) {
       http.get(
-        `${apiUrl}/top-headlines?country=${country}&apiKey=${apiKey}`,
+        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`,
         cb
       );
     },
+
     everything(query, cb) {
       http.get(`${apiUrl}/everything?q=${query}&apiKey=${apiKey}`, cb);
     },
@@ -116,16 +118,16 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadNews() {
   addSpinner();
   const chooseCountry = selectCountry.value;
+  const chooseCategory = selectCategory.value;
   const textValue = inputTextarea.value;
 
   clearContent();
 
   if (!textValue) {
-    newsService.topHeadlines(chooseCountry, onGetResponse);
+    newsService.topHeadlines(chooseCountry, chooseCategory, onGetResponse);
   } else {
     newsService.everything(textValue, onGetResponse);
   }
-  // newsService.topHeadlines("ru", onGetResponse);
 }
 
 // Function on get response from server
